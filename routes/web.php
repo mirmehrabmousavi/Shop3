@@ -59,11 +59,11 @@ require __DIR__ . '/auth.php';
 
 Route::get('province/get-cities', [ProvinceController::class, 'getCities'])->name('provinces.get-cities');
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin/' , 'middleware' => ['guest']], function () {
-    Route::get('login', [MainController::class, 'login'])->middleware(['CheckUserExists'])->name('login');
-    Route::get('register', [InstallController::class, 'showRegisterForm'])->name('register')->middleware(['CheckUserNotExists']);
-    Route::post('register', [InstallController::class, 'register'])->middleware(['CheckUserNotExists']);
-});
+//Route::group(['as' => 'admin.', 'prefix' => 'admin/' , 'middleware' => ['guest']], function () {
+//    Route::get('login', [MainController::class, 'login'])->middleware(['CheckUserExists'])->name('login');
+//    Route::get('register', [InstallController::class, 'showRegisterForm'])->name('register')->middleware(['CheckUserNotExists']);
+//    Route::post('register', [InstallController::class, 'register'])->middleware(['CheckUserNotExists']);
+//});
 
 // ------------------ Admin Part Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin/', 'middleware' => ['auth', 'Admin', 'verified', 'CheckPasswordChange', 'password.confirm']], function () {

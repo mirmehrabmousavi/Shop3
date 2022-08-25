@@ -1,28 +1,37 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Themes\DefaultTheme\src\Controllers\MainController;
-use Themes\DefaultTheme\src\Controllers\PostController;
-use Themes\DefaultTheme\src\Controllers\ProductController;
-use Themes\DefaultTheme\src\Controllers\CartController;
-use Themes\DefaultTheme\src\Controllers\StockNotifyController;
-use Themes\DefaultTheme\src\Controllers\PageController;
-use Themes\DefaultTheme\src\Controllers\BrandController;
-use Themes\DefaultTheme\src\Controllers\OrderController;
-use Themes\DefaultTheme\src\Controllers\UserController;
-use Themes\DefaultTheme\src\Controllers\SitemapController;
-use Themes\DefaultTheme\src\Controllers\ContactController;
-use Themes\DefaultTheme\src\Controllers\FavoriteController;
-use Themes\DefaultTheme\src\Controllers\TicketController;
-use Themes\DefaultTheme\src\Controllers\VerifyController;
-use Themes\DefaultTheme\src\Controllers\DiscountController;
-use Themes\DefaultTheme\src\Controllers\WalletController;
+use Themes\DefaultTheme\src\Controllers\Shop\MainController;
+use Themes\DefaultTheme\src\Controllers\Shop\PostController;
+use Themes\DefaultTheme\src\Controllers\Shop\ProductController;
+use Themes\DefaultTheme\src\Controllers\Shop\CartController;
+use Themes\DefaultTheme\src\Controllers\Shop\StockNotifyController;
+use Themes\DefaultTheme\src\Controllers\Shop\PageController;
+use Themes\DefaultTheme\src\Controllers\Shop\BrandController;
+use Themes\DefaultTheme\src\Controllers\Shop\OrderController;
+use Themes\DefaultTheme\src\Controllers\Shop\UserController;
+use Themes\DefaultTheme\src\Controllers\Shop\SitemapController;
+use Themes\DefaultTheme\src\Controllers\Shop\ContactController;
+use Themes\DefaultTheme\src\Controllers\Shop\FavoriteController;
+use Themes\DefaultTheme\src\Controllers\Shop\TicketController;
+use Themes\DefaultTheme\src\Controllers\Shop\VerifyController;
+use Themes\DefaultTheme\src\Controllers\Shop\DiscountController;
+use Themes\DefaultTheme\src\Controllers\Shop\WalletController;
 
-// ------------------ Front Part Routes
-
+// ------------------ Index Routes
 Route::group(['as' => 'front.'], function () {
+    Route::get('/', [\Themes\DefaultTheme\src\Controllers\IndexController::class, 'index'])->name('index');
+});
+
+// ------------------ Edu Routes
+Route::group(['as' => 'front.','prefix' => 'edu/'], function() {
+    Route::get('/edu' , [\Themes\DefaultTheme\src\Controllers\Edu\EduController::class, 'index'])->name('edu.index');
+});
+
+// ------------------ Shop Routes
+Route::group(['as' => 'front.','prefix' => 'shop/'], function () {
     // ------------------ MainController
-    Route::get('/', [MainController::class, 'index'])->name('index');
+    Route::get('/', [MainController::class, 'index'])->name('shop.index');
     Route::get('/get-new-captcha', [MainController::class, 'captcha']);
 
     // ------------------ posts
