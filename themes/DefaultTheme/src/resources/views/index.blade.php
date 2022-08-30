@@ -5,7 +5,7 @@
     <meta name="keywords" content="{{ option('info_tags') }}">
 
     <link rel="canonical" href="{{ url('/') }}" />
-    
+
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",

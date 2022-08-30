@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Back\ApikeyController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Back\ProvinceController;
 use App\Http\Controllers\Back\MainController;
@@ -65,11 +66,52 @@ Route::get('province/get-cities', [ProvinceController::class, 'getCities'])->nam
 //    Route::post('register', [InstallController::class, 'register'])->middleware(['CheckUserNotExists']);
 //});
 
+Route::group(['prefix' => 'admin/edu/', 'middleware' => ['auth','Admin','verified','CheckPasswordChange','password.confirm']], function() {
+    //Edu Admin
+    //Admin Dashboard
+    Route::get('/', [\App\Http\Controllers\Back\Edu\AdminController::class, 'index'])->name('admin.edu.dashboard');
+    //Zoom Class
+    Route::get('/onlineClass', [\App\Http\Controllers\Back\Edu\OnlineClassController::class, 'index'])->name('admin.onlineClass.index');
+    Route::get('/onlineClass/create', [\App\Http\Controllers\Back\Edu\OnlineClassController::class, 'create'])->name('admin.onlineClass.create');
+    Route::post('/onlineClass/create', [\App\Http\Controllers\Back\Edu\OnlineClassController::class, 'store'])->name('admin.onlineClass.store');
+    Route::get('/onlineClass/edit/{id}', [\App\Http\Controllers\Back\Edu\OnlineClassController::class, 'edit'])->name('admin.onlineClass.edit');
+    Route::patch('/onlineClass/edit/{id}', [\App\Http\Controllers\Back\Edu\OnlineClassController::class, 'update'])->name('admin.onlineClass.update');
+    Route::delete('/onlineClass/delete/{id}', [\App\Http\Controllers\Back\Edu\OnlineClassController::class, 'destroy'])->name('admin.onlineClass.destroy');
+    //Category
+    Route::get('category', [\App\Http\Controllers\Back\Edu\EduCategoryController::class, 'indexCategory'])->name('admin.indexCategory');
+    Route::get('category/create', [\App\Http\Controllers\Back\Edu\EduCategoryController::class, 'createCategory'])->name('admin.createCategory');
+    Route::post('category/create', [\App\Http\Controllers\Back\Edu\EduCategoryController::class, 'storeCategory'])->name('admin.storeCategory');
+    Route::get('category/edit/{id}', [\App\Http\Controllers\Back\Edu\EduCategoryController::class, 'editCategory'])->name('admin.editCategory');
+    Route::patch('category/edit/{id}', [\App\Http\Controllers\Back\Edu\EduCategoryController::class, 'updateCategory'])->name('admin.updateCategory');
+    Route::delete('category/delete/{id}', [\App\Http\Controllers\Back\Edu\EduCategoryController::class, 'deleteCategory'])->name('admin.deleteCategory');
+    //Season
+    Route::get('season', [\App\Http\Controllers\Back\Edu\SeasonController::class, 'index'])->name('admin.indexSeason');
+    Route::get('season/create', [\App\Http\Controllers\Back\Edu\SeasonController::class, 'create'])->name('admin.createSeason');
+    Route::post('season/create', [\App\Http\Controllers\Back\Edu\SeasonController::class, 'store'])->name('admin.storeSeason');
+    Route::get('season/edit/{id}', [\App\Http\Controllers\Back\Edu\SeasonController::class, 'edit'])->name('admin.editSeason');
+    Route::patch('season/edit/{id}', [\App\Http\Controllers\Back\Edu\SeasonController::class, 'update'])->name('admin.updateSeason');
+    Route::delete('season/delete/{id}', [\App\Http\Controllers\Back\Edu\SeasonController::class, 'delete'])->name('admin.deleteSeason');
+    //Course
+    Route::get('course', [\App\Http\Controllers\Back\Edu\CourseController::class, 'indexCourse'])->name('admin.indexCourse');
+    Route::get('course/create', [\App\Http\Controllers\Back\Edu\CourseController::class, 'createCourse'])->name('admin.createCourse');
+    Route::post('course/create', [\App\Http\Controllers\Back\Edu\CourseController::class, 'storeFirstCourse'])->name('admin.storeFirstCourse');
+    Route::get('course/edit/{id}', [\App\Http\Controllers\Back\Edu\CourseController::class, 'editCourse'])->name('admin.editCourse');
+    Route::patch('course/edit/{id}', [\App\Http\Controllers\Back\Edu\CourseController::class, 'updateCourse'])->name('admin.updateCourse');
+    Route::delete('course/delete/{id}', [\App\Http\Controllers\Back\Edu\CourseController::class, 'deleteCourse'])->name('admin.deleteCourse');
+    //Lesson
+    Route::get('lesson', [\App\Http\Controllers\Back\Edu\LessonController::class, 'indexLesson'])->name('admin.indexLesson');
+    Route::get('lesson/create', [\App\Http\Controllers\Back\Edu\LessonController::class, 'createLesson'])->name('admin.createLesson');
+    Route::post('lesson/create', [\App\Http\Controllers\Back\Edu\LessonController::class, 'storeLesson'])->name('admin.storeLesson');
+    Route::get('lesson/edit/{id}', [\App\Http\Controllers\Back\Edu\LessonController::class, 'editLesson'])->name('admin.editLesson');
+    Route::patch('lesson/edit/{id}', [\App\Http\Controllers\Back\Edu\LessonController::class, 'updateLesson'])->name('admin.updateLesson');
+    Route::delete('lesson/delete/{id}', [\App\Http\Controllers\Back\Edu\LessonController::class, 'deleteLesson'])->name('admin.deleteLesson');
+});
+
 // ------------------ Admin Part Routes
 Route::group(['as' => 'admin.', 'prefix' => 'admin/', 'middleware' => ['auth', 'Admin', 'verified', 'CheckPasswordChange', 'password.confirm']], function () {
-
+    Route::get('/', [IndexController::class, 'index'])->name('dashboard');
     // ------------------ MainController
-    Route::get('/', [MainController::class, 'index'])->name('dashboard');
+    Route::get('/shop', [MainController::class, 'index'])->name('shop.dashboard');
     Route::get('get-tags', [MainController::class, 'get_tags'])->name('get-tags');
     Route::get('get-labels', [MainController::class, 'getLabels'])->name('get-labels');
 

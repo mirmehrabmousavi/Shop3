@@ -56,7 +56,7 @@
                             <a href="#">خانه</a>
                         </li>
                         <li>
-                            <a href="https://arhamtel.com/shop/">ورود به فروشگاه</a>
+                            <a href="{{route('front.shop.index')}}">ورود به فروشگاه</a>
                             <!-- level 2-->
                             <!--<ul>
                                 <li><a href="portfolio.html">استایل 1</a></li>
@@ -78,15 +78,15 @@
                             </ul>-->
                             <!-- level 2 end-->
                         </li>
-                        <li><a href=https://arhamtel.com/repair/">ورود به آموزشگاه</a></li>
-                        <li><a href="https://arhamtel.com/academy/">ورود به تعمیرات</a></li>
-                        <li><a href="https://arhamtel.com/academy/">وبلاگ</a></li>
+                        <li><a href="{{route('front.edu.index')}}">ورود به آموزشگاه</a></li>
+                        <li><a href="#">ورود به تعمیرات</a></li>
+                        <li><a href="#">وبلاگ</a></li>
                         <li>
                             <a href="#">لینک های مفید</a>
                             <!-- level 2-->
                             <ul>
                                 <li><a href="#">درباره ما</a></li>
-                                <li><a href="https://arhamtel.com/contact">تماس با ما</a></li>
+                                <li><a href="#">تماس با ما</a></li>
                                 <li><a href="#">همکاری با ما</a></li>
                             </ul>
                             <!-- level 2 end-->

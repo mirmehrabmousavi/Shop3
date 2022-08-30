@@ -15,13 +15,7 @@
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ option('info_icon', theme_asset('images/favicon-32x32.png')) }}">
 
-    <title>
-        @isset($title)
-            {{ $title }} |
-        @endisset
-
-        {{ option('info_site_title', 'لاراول شاپ') }}
-    </title>
+    <title>آرهام تل - فروشگاه</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="{{ theme_asset('css/vendor/materialdesignicons.min.css') }}">

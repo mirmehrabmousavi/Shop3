@@ -21,11 +21,22 @@ use Themes\DefaultTheme\src\Controllers\Shop\WalletController;
 // ------------------ Index Routes
 Route::group(['as' => 'front.'], function () {
     Route::get('/', [\Themes\DefaultTheme\src\Controllers\IndexController::class, 'index'])->name('index');
+    // ------------------ posts
+    Route::resource('posts', PostController::class)->only(['index', 'show']);
+    Route::get('posts/category/{category}', [PostController::class, 'category'])->name('posts.category');
+    Route::post('posts/{post}/comments', [PostController::class, 'comments'])->name('post.comments');
+    // ------------------ tickets
+    Route::resource('tickets', TicketController::class)->except(['destroy']);
 });
 
 // ------------------ Edu Routes
-Route::group(['as' => 'front.','prefix' => 'edu/'], function() {
-    Route::get('/edu' , [\Themes\DefaultTheme\src\Controllers\Edu\EduController::class, 'index'])->name('edu.index');
+Route::group(['as' => 'front.','prefix' => 'education'], function() {
+    Route::get('/' , [\Themes\DefaultTheme\src\Controllers\Edu\EduController::class, 'index'])->name('edu.index');
+    Route::get('/courses' , [\Themes\DefaultTheme\src\Controllers\Edu\EduController::class, 'courses'])->name('edu.courses');
+    Route::get('/courses/category/{id}' , [\Themes\DefaultTheme\src\Controllers\Edu\EduController::class, 'coursesCat'])->name('edu.courses-cat');
+    Route::get('/course/{id}' , [\Themes\DefaultTheme\src\Controllers\Edu\EduController::class, 'courseShow'])->name('edu.course.show');
+    Route::get('/classes' , [\Themes\DefaultTheme\src\Controllers\Edu\EduController::class, 'classes'])->name('edu.classes');
+    Route::get('/class/{id}' , [\Themes\DefaultTheme\src\Controllers\Edu\EduController::class, 'classShow'])->name('edu.class.show');
 });
 
 // ------------------ Shop Routes
@@ -33,10 +44,6 @@ Route::group(['as' => 'front.','prefix' => 'shop/'], function () {
     // ------------------ MainController
     Route::get('/', [MainController::class, 'index'])->name('shop.index');
     Route::get('/get-new-captcha', [MainController::class, 'captcha']);
-
-    // ------------------ posts
-    Route::resource('posts', PostController::class)->only(['index', 'show']);
-    Route::get('posts/category/{category}', [PostController::class, 'category'])->name('posts.category');
 
     // ------------------ products
     Route::resource('products', ProductController::class)->only(['show', 'index']);
@@ -52,7 +59,6 @@ Route::group(['as' => 'front.','prefix' => 'shop/'], function () {
     Route::post('product/compare', [ProductController::class, 'similarCompare'])->name('products.similar-compare');
     Route::get('products/{price}/priceChart', [ProductController::class, 'priceChart'])->name('products.priceChart');
 
-
     // ------------------ cart
     Route::get('cart', [CartController::class, 'show'])->name('cart');
     Route::post('cart/{product}', [CartController::class, 'store'])->name('cart.store');
@@ -60,7 +66,6 @@ Route::group(['as' => 'front.','prefix' => 'shop/'], function () {
     Route::delete('cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
     Route::post('stock-notify', [StockNotifyController::class, 'store']);
-
 
     // ------------------ pages
     Route::get('pages/{page}', [PageController::class, 'show'])->name('pages.show');
@@ -118,14 +123,9 @@ Route::group(['as' => 'front.','prefix' => 'shop/'], function () {
         Route::get('products/{price}/download', [ProductController::class, 'download'])->name('products.download');
         Route::post('products/{product}/comments', [ProductController::class, 'comments'])->name('product.comments');
 
-        // ------------------ posts
-        Route::post('posts/{post}/comments', [PostController::class, 'comments'])->name('post.comments');
-
         // ------------------ favorites
         Route::resource('favorites', FavoriteController::class)->only(['index', 'store', 'destroy']);
 
-        // ------------------ tickets
-        Route::resource('tickets', TicketController::class)->except(['destroy']);
     });
 
     // ------------------ verify user routes
